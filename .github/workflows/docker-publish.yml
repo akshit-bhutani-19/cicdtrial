@@ -41,7 +41,7 @@ jobs:
           chmod 400 private_key.pem
           ssh -o StrictHostKeyChecking=no -i private_key.pem $USER@$HOST << 'EOF'
             sudo docker pull $IMAGE_NAME:latest
-            sudo docker stop your-container-name || true
-            sudo docker rm your-container-name || true
-            sudo docker run -d --name your-container-name -p 80:80 $IMAGE_NAME:latest
+            sudo docker stop frontend || true
+            sudo docker rm frontend || true
+            sudo docker run -d --name frontend -p 8080:8080 $IMAGE_NAME:latest
           EOF
