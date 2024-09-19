@@ -20,17 +20,13 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build Docker image
+      - name: Build and Push Docker image
         run: |
           IMAGE_NAME=akshit19/netflixfrontend
           VERSION=$(date +'%Y%m%d%H%M%S')
           docker build -t $IMAGE_NAME:$VERSION .
           docker tag $IMAGE_NAME:$VERSION $IMAGE_NAME:latest
-
-      - name: Push Docker image
-        run: |
-          IMAGE_NAME=akshit19/netflixfrontend
-          VERSION=$(date +'%Y%m%d%H%M%S')
           docker push $IMAGE_NAME:$VERSION
           docker push $IMAGE_NAME:latest
-          
+
+
