@@ -40,11 +40,8 @@ jobs:
           echo "$PRIVATE_KEY" > private_key.pem
           chmod 400 private_key.pem
           ssh -o StrictHostKeyChecking=no -i private_key.pem $USER@$HOST << 'EOF'
-            echo "Using IMAGE_NAME: $IMAGE_NAME"
             sudo docker pull $IMAGE_NAME:latest
-            echo "Stopping and removing old container"
             sudo docker stop $(docker ps -q) || true
             sudo docker rm $(docker ps -a -q) || true
             sudo docker run -d --name frontend -p 8080:8080 $IMAGE_NAME:latest
-            echo "Running new container"
           EOF
