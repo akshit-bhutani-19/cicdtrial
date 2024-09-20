@@ -44,13 +44,13 @@ jobs:
             sudo docker pull $IMAGE_NAME:latest
             sudo docker stop frontend || true
             sudo docker rm frontend || true
-            sudo docker run -d --name frontend -e MOVIE_CATALOG_SERVICE=http://localhost:8080 -p 3000:3000 $IMAGE_NAME:latest
+            sudo docker run -d --name frontend -e MOVIE_CATALOG_SERVICE=http://13.51.172.131:8080 -p 3000:3000 $IMAGE_NAME:latest
             exit
           EOF
           ssh -o StrictHostKeyChecking=no -i private_key.pem $USER@$HOST2 << EOF
             sudo docker pull $IMAGE_NAME:latest
             sudo docker stop frontend || true
             sudo docker rm frontend || true
-            sudo docker run -d --name frontend -e MOVIE_CATALOG_SERVICE=http://localhost:8080 -p 3000:3000 $IMAGE_NAME:latest
+            sudo docker run -d --name frontend -e MOVIE_CATALOG_SERVICE=http://13.51.172.131:8080 -p 3000:3000 $IMAGE_NAME:latest
             exit
           EOF
