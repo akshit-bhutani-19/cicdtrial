@@ -33,6 +33,7 @@ jobs:
       - name: Deploy to EC2
         env:
           HOST: ${{ secrets.EC2_HOST }}
+          HOST2: ${{ secrets.EC2_HOST2 }}
           USER: ${{ secrets.EC2_USER }}
           PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
         run: |
@@ -40,6 +41,13 @@ jobs:
           echo "$PRIVATE_KEY" > private_key.pem
           chmod 400 private_key.pem
           ssh -o StrictHostKeyChecking=no -i private_key.pem $USER@$HOST << EOF
+            sudo docker pull $IMAGE_NAME:latest
+            sudo docker stop frontend || true
+            sudo docker rm frontend || true
+            sudo docker run -d --name frontend -p 3000:3000 $IMAGE_NAME:latest
+            exit
+          EOF
+          ssh -o StrictHostKeyChecking=no -i private_key.pem $USER@$HOST2 << EOF
             sudo docker pull $IMAGE_NAME:latest
             sudo docker stop frontend || true
             sudo docker rm frontend || true
