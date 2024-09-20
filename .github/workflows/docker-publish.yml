@@ -43,6 +43,6 @@ jobs:
             sudo docker pull $IMAGE_NAME:latest
             sudo docker stop $(docker ps -q) || true
             sudo docker rm $(docker ps -a -q) || true
-            sudo docker run -d --name frontend -p 8080:8080 $IMAGE_NAME:latest
+            sudo docker run -d --name frontend -p 3000:3000 $IMAGE_NAME:latest
             exit
           EOF
